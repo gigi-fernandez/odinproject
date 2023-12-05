@@ -45,6 +45,7 @@ function AddItem(){
 addButton.addEventListener('click', (ev)=>{
   if (!input.value) return
   AddItem();
+  input.focus()
 })
 
 input.addEventListener('keypress', (ev)=>{
