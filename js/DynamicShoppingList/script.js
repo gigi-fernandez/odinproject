@@ -48,7 +48,7 @@ addButton.addEventListener('click', (ev)=>{
   input.focus()
 })
 
-input.addEventListener('keypress', (ev)=>{
+input.addEventListener('keydown', (ev)=>{
   if (ev.key != "Enter") return
   if (!input.value) return
   AddItem();
