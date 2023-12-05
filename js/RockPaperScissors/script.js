@@ -9,40 +9,78 @@ function getComputerChoice(){
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function playRound(userChoice, compChoice){
-  userChoice = String(userChoice).toLowerCase()
-  compChoice = String(compChoice).toLowerCase()
-  console.log(userChoice, compChoice)
-  if (userChoice == compChoice) return "draw"
-  if (winningPair.find(pair=>(pair.win == userChoice && pair.lose == compChoice))) return "win"
-  return "lose"
+const rivalChoice = document.getElementById('rival-choice');
+const black = document.createElement('img')
+rivalChoice.appendChild(black)
+const score = document.getElementById("score")
+const gameOver = document.getElementById("game-over")
+
+function changeCompIcon(choice){
+  rivalChoice.textContent = ''
+  rivalChoice.src = `./images/${choice}.png`
+  black.src = './images/none.png'
+  black.style.zIndex = '2'
 }
 
-const maxRounds = 5
+function playRound(userChoice){
+  if (isGameOver()) {
+    console.log("Game finished. Restarting...")
+    newGame()
+    return
+  }
+  const compChoice = getComputerChoice()
+  userChoice = String(userChoice).toLowerCase()
+  changeCompIcon(compChoice)
+  let result = ''
+  if (userChoice == compChoice) result = "draw"
+  else if (winningPair.find(pair=>(pair.win == userChoice && pair.lose == compChoice))) result = "win"
+  else result = "lose"
+
+  console.log(`User: ${userChoice}, Comp: ${compChoice} -> ${result}`)
+  executeResult(result)
+}
+
+const maxPoints = 5
 let userPoints = 0
 let compPoints = 0
-function game(){
-  userPoints = 0
-  compPoints = 0
-  for (let round = 0; round < maxRounds; round++) {
-    let input = prompt("Rock, paper or scissors?")
-    while(!choices.includes(String(input).toLowerCase())){
-      console.log("That is not a valid choice! Choose again!")
-      input = prompt(`Choose again.
-      Rock, paper or scissors?`)
-    }
-    const result = playRound(input, getComputerChoice())
-    console.log(result)
-    if (result == "draw") {
-      console.log(`repeating round`)
-      round = round - 1
-    }
-    else if (result == "win") {userPoints++}
-    else {compPoints++};
-  }
 
-  if (userPoints>compPoints) console.log("You won!")
-  else console.log("You lost! Try again.")
+function executeResult(result){
+  if (result == "draw") {
+    console.log(`repeating round`)
+  }
+  else if (result == "win") {userPoints++}
+  else {compPoints++};
+  score.textContent = `You: ${userPoints} | Computer: ${compPoints}`
+
+  if (!isGameOver()) return
+
+  if (userPoints>compPoints) {
+    console.log("You won!")
+    gameOver.textContent = `You won!`
+  }
+  else {
+    console.log("You lost! Try again.")
+    gameOver.textContent = `You lost! Try again.`
+  }
 }
 
-game()
+function newGame(){
+  userPoints = 0
+  compPoints = 0
+  rivalChoice.src = './images/none.png'
+  score.textContent = `You: ${userPoints} | Computer: ${compPoints}`
+  gameOver.textContent = ''
+}
+
+function isGameOver(){
+  if (userPoints >= maxPoints || compPoints >= maxPoints) return true
+  return false
+}
+
+const rockButton = document.getElementById('rock')
+const paperButton = document.getElementById('paper')
+const scissorsButton = document.getElementById('scissors')
+
+rockButton.addEventListener('click', ()=>playRound('rock'))
+paperButton.addEventListener('click', ()=>playRound('paper'))
+scissorsButton.addEventListener('click', ()=>playRound('scissors'))
