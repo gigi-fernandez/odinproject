@@ -54,6 +54,7 @@ function executeResult(result){
 
   if (!isGameOver()) return
 
+  gameOver.style.fontSize = '16px'
   if (userPoints>compPoints) {
     console.log("You won!")
     gameOver.textContent = `You won!`
@@ -70,6 +71,7 @@ function newGame(){
   rivalChoice.src = './images/none.png'
   score.textContent = `You: ${userPoints} | Computer: ${compPoints}`
   gameOver.textContent = ''
+  gameOver.style.fontSize = '0px'
 }
 
 function isGameOver(){
