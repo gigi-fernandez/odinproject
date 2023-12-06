@@ -1,0 +1,83 @@
+#game {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+#screen {
+  background-color: crimson;
+  box-sizing: border-box;
+  height: 550px;
+  width: 550px;
+  padding: 75px;
+  padding-top: 0px;
+  border: 20px;
+  border-color:  rgb(163, 15, 45);
+  border-radius: 20px;
+}
+
+h1 {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: center;
+  color: yellow;
+  text-shadow: 2px 2px #000;
+  font-style: italic;
+}
+
+#squares {
+  background-color: rgb(185, 199, 174);
+  height: 400px;
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  box-sizing: border-box;
+  border: 1px solid #00000014;
+  background-color: transparent;
+  padding: 0px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+}
+
+.option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+p{
+  color: antiquewhite;
+  font-weight: 900;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.control {
+  height: 50px;
+  width: 50px;
+  background-color: antiquewhite;
+  border: 5px solid rgb(248, 205, 149);
+  border-radius: 100%;
+  border-style: groove;
+}
